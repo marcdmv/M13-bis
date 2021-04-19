@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>LISTADO DE LIBROS</title>
+</head>
+<body>
+<h3>Usuario: <span th:text="${usuario.nombre}"></span> - Password: <span th:text="${usuario.password}"></span></h3>
+
+<H1>LISTADO DE LIBROS</H1>
+    <table border="1">
+        <thead>
+            <tr><th> Id <th> Titulo <th> Autor <th> Editorial <th> Fecha <th> Tematica
+            </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${libros.empty}">
+            <td colspan="2"> No books available </td>
+        </tr>
+        <tr th:each="libro : ${libros}">
+            <td><span th:text="${libro.id}"></span></td>
+            <td><span th:text="${libro.titulo}"></span></td>
+            <td><span th:text="${libro.autor}"></span></td>
+            <td><span th:text="${libro.editorial}"></span></td>
+            <td><span th:text="${libro.fecha}"></span></td>
+            <td><span th:text="${libro.tematica}"></span></td>
+        </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>
