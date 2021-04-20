@@ -2,40 +2,38 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>LISTADO DE LIBROS</title>
+    <title>LISTADO DE EMPLEADOS</title>
 </head>
 <body>
 <h3>Usuario: <span th:text="${usuario.nombre}"></span> - Password: <span th:text="${usuario.password}"></span></h3>
 
-<H1>LISTADO DE LIBROS</H1>
+<H1>LISTADO DE EMPLEADOS</H1>
     <table border="1">
         <thead>
-            <tr><th> Id <th> Titulo <th> Autor <th> Editorial <th> Fecha <th> Tematica <th> Borrado <th> Modificar
+            <tr><th> Id <th> Nombre <th> Apellido <th> Puesto <th> Salario <th> Borrar <th> Modificar
             </tr>
         </thead>
         <tbody>
-        <tr th:if="${libros.empty}">
-            <td colspan="2"> No books available </td>
+        <tr th:if="${empleados.empty}">
+            <td colspan="2"> No employees available </td>
         </tr>
-        <tr th:each="libro : ${libros}">
-            <td><span th:text="${libro.id}"></span></td>
-            <td><span th:text="${libro.titulo}"></span></td>
-            <td><span th:text="${libro.autor}"></span></td>
-            <td><span th:text="${libro.editorial}"></span></td>
-            <td><span th:text="${libro.fecha}"></span></td>
-            <td><span th:text="${libro.tematica}"></span></td>
-            <td><a th:href="@{/borrado/}+${libro.id}">Borrado</a></td>
-            <td><a th:href="@{/modificar/}+${libro.id}">Modificar</a></td>
+        <tr th:each="empleado : ${empleados}">
+            <td><span th:text="${empleado.id}"></span></td>
+            <td><span th:text="${empleado.nombre}"></span></td>
+            <td><span th:text="${empleado.apellido}"></span></td>
+            <td><span th:text="${empleado.puesto}"></span></td>
+            <td><span th:text="${empleado.salario}"></span></td>
+            <td><a th:href="@{/borrar/}+${empleado.id}">Borrar</a></td>
+            <td><a th:href="@{/modificar/}+${empleado.id}">Modificar</a></td>
         </tr>
         </tbody>
     </table>
     <form th:action="${action}" method="post">
-        <br>ID: <input type="text" name="id" th:value="${libro?.id}">
-        TITULO: <input type="text" name="titulo" th:value="${libro?.titulo}">
-        AUTOR: <input type="text" name="autor" th:value="${libro?.autor}"><br>
-        EDITORIAL: <input type="text" name="editorial" th:value="${libro?.editorial}">
-        FECHA: <input type="text" name="fecha" th:value="${libro?.fecha}">
-        TEMATICA: <input type="text" name="tematica" th:value="${libro?.tematica}"><br>
+        <br>ID: <input type="text" name="id" th:value="${empleado?.id}">
+        NOMBRE: <input type="text" name="nombre" th:value="${empleado?.nombre}">
+        APELLIDO: <input type="text" name="apellido" th:value="${empleado?.apellido}"><br>
+        PUESTO: <input type="text" name="puesto" th:value="${empleado?.puesto}">
+        SALARIO: <input type="text" name="salario" th:value="${empleado?.salario}">
         <input type="submit" name="submit" th:value="${boton}">
     </form>
 

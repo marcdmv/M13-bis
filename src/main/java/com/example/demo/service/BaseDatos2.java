@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.bean.Libro;
+import com.example.demo.bean.Empleado;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ public class BaseDatos2 {
     public BaseDatos2() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            String conex="jdbc:mysql://localhost:3306/biblioteca_online";
+            String conex="jdbc:mysql://localhost:3306/empleados_online";
             this.conexion = DriverManager.getConnection(conex,"root","Enjoy");
         }
         catch (Exception e) {
@@ -20,18 +20,17 @@ public class BaseDatos2 {
         }
     }
 
-    public void inserta(Libro libro) {
-        String query = " insert into libros (id, titulo, autor, editorial, fecha, tematica)"
-                + " values (?, ?, ?, ?, ?, ?)";
+    public void inserta(Empleado empleado) {
+        String query = " insert into empleados (id, nombre, apellido, puesto, salario)"
+                + " values (?, ?, ?, ?, ?)";
         try {
             PreparedStatement preparedStmt;
             preparedStmt = conexion.prepareStatement(query);
-            preparedStmt.setInt (1, libro.getId());
-            preparedStmt.setString(2, libro.getTitulo());
-            preparedStmt.setString(3,libro.getAutor());
-            preparedStmt.setString(4,libro.getEditorial());
-            preparedStmt.setString(5,libro.getFecha());
-            preparedStmt.setString(6,libro.getTematica());
+            preparedStmt.setInt (1, empleado.getId());
+            preparedStmt.setString(2, empleado.getNombre());
+            preparedStmt.setString(3,empleado.getApellido());
+            preparedStmt.setString(4,empleado.getPuesto());
+            preparedStmt.setInt(5,empleado.getSalario());
             preparedStmt.executeUpdate();
 
         } catch (SQLException ex) {
@@ -40,7 +39,7 @@ public class BaseDatos2 {
     }
 
     public void borrar(int id) {
-        String query = " delete from libros where id="+id;
+        String query = " delete from empleados where id="+id;
 
         try {
             PreparedStatement preparedStmt = conexion.prepareStatement(query);
@@ -51,16 +50,15 @@ public class BaseDatos2 {
         }
     }
 
-    public void modifica(Libro libro) {
-        String query = " update libros set titulo=?, autor=?, editorial=?, fecha=?, tematica=? " + " where id=?";
+    public void modifica(Empleado empleado) {
+        String query = " UPDATE empleados SET nombre=?, apellido=?, puesto=?, salario=?" + " WHERE id=?";
         try {
             PreparedStatement preparedStmt = conexion.prepareStatement(query);
-            preparedStmt.setString(1,libro.getTitulo());
-            preparedStmt.setString(2,libro.getAutor());
-            preparedStmt.setString(3,libro.getEditorial());
-            preparedStmt.setString(4,libro.getFecha());
-            preparedStmt.setString(5,libro.getTematica());
-            preparedStmt.setInt(6, libro.getId());
+            preparedStmt.setString(1,empleado.getNombre());
+            preparedStmt.setString(2,empleado.getApellido());
+            preparedStmt.setString(3,empleado.getPuesto());
+            preparedStmt.setInt(4,empleado.getSalario());
+            preparedStmt.setInt(5, empleado.getId());
             System.out.print(preparedStmt.toString());
 
             preparedStmt.executeUpdate();
@@ -69,37 +67,37 @@ public class BaseDatos2 {
         }
     }
 
-    public Libro getLibro(int id) {
-        Libro libro = null;
+    public Empleado getEmpleado(int id) {
+        Empleado empleado = null;
         try {
             Statement s = conexion.createStatement();
-            String sql = "SELECT * FROM LIBROS WHERE ID="+id;
+            String sql = "SELECT * FROM empleados WHERE id="+id;
             s.execute(sql);
             ResultSet rs = s.getResultSet();
             rs.next();
-            libro = new Libro(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6));
+            empleado = new Empleado(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getInt(5));
 
         } catch (SQLException ex) {
             System.out.print(ex.getMessage());
         }
-        return libro;
+        return empleado;
     }
 
-    public ArrayList<Libro> getLibros() {
-        ArrayList<Libro> lista = new ArrayList<>();
+    public ArrayList<Empleado> getEmpleados() {
+        ArrayList<Empleado> empleados = new ArrayList<>();
         try {
             Statement s = conexion.createStatement();
-            String sql = "SELECT * FROM LIBROS";
+            String sql = "SELECT * FROM empleados";
             s.execute(sql);
             ResultSet rs = s.getResultSet();
             while (rs.next()) {
-                Libro libro = new Libro(rs.getInt(1), rs.getString(2), rs.getString(3),
-                        rs.getString(4), rs.getString(5), rs.getString(6));
-                lista.add(libro);
+                Empleado empleado = new Empleado(rs.getInt(1), rs.getString(2), rs.getString(3),
+                        rs.getString(4), rs.getInt(5));
+                empleados.add(empleado);
             }
         } catch (SQLException ex) {
             System.out.print(ex.getMessage());
         }
-        return lista;
+        return empleados;
     }
 }

@@ -1,59 +1,58 @@
 package com.example.demo.service;
 
-import com.example.demo.bean.Libro;
+import com.example.demo.bean.Empleado;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 
 public class BaseDatos {
 
-    ArrayList<Libro> libros = new ArrayList<>();
+    ArrayList<Empleado> empleados = new ArrayList<>();
 
     public BaseDatos() {
-        libros.add(new Libro(1,"Harry potter","JKRowling","Salamandra","26/9/2006", "Infantil"));
-        libros.add(new Libro(2,"El gran laberinto","Fernando","Ariel","26/9/2006", "Ficcion"));
-        libros.add(new Libro(3,"Romeo y Julieta","W Shakespeare","Salamandra","26/9/2006", "Romantica"));
+        empleados.add(new Empleado(1,"Maria","Garcia","Directora",85000));
+        empleados.add(new Empleado(2,"Carlos","Fernandez","Comercial",45000));
+        empleados.add(new Empleado(3,"Roberto","Smith","Soporte",30000));
     }
 
-    public void inserta(Libro libro) {
-        libros.add(libro);
+    public void inserta(Empleado empleado) {
+        empleados.add(empleado);
     }
 
     public void borrar(int id) {
-        Iterator<Libro> it = libros.iterator();
+        Iterator<Empleado> it = empleados.iterator();
         while(it.hasNext()) {
-            Libro li = it.next();
-            if (li.getId()==id) {
+            Empleado em = it.next();
+            if (em.getId()==id) {
                 it.remove();
                 break;
             }
         }
     }
 
-    public void modifica(Libro libro){
-        Iterator<Libro> it =libros.iterator();
+    public void modifica(Empleado empleado){
+        Iterator<Empleado> it = empleados.iterator();
         while(it.hasNext()) {
-            Libro li = it.next();
-            if (li.getId() == libro.getId()) {
-                li.setTitulo(libro.getTitulo());
-                li.setAutor(libro.getAutor());
-                li.setEditorial(libro.getEditorial());
-                li.setFecha(libro.getFecha());
-                li.setTematica(libro.getTematica());
+            Empleado em = it.next();
+            if (em.getId() == empleado.getId()) {
+                em.setNombre(empleado.getNombre());
+                em.setApellido(empleado.getApellido());
+                em.setPuesto(empleado.getPuesto());
+                em.setSalario(empleado.getSalario());
                 break;
             }
         }
     }
 
-    public ArrayList<Libro> getLibros() {
-        return libros;
+    public ArrayList<Empleado> getEmpleados() {
+        return empleados;
     }
 
-    public Libro getLibro(int id){
-        return libros.get(id);
+    public Empleado getEmpleado(int id){
+        return empleados.get(id);
     }
 
-    public void setLibros(ArrayList<Libro> libros){
-        this.libros = libros;
+    public void setEmpleados(ArrayList<Empleado> empleados){
+        this.empleados = empleados;
     }
 }

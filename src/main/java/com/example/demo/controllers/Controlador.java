@@ -1,7 +1,6 @@
 package com.example.demo.controllers;
 
-import com.example.demo.service.BaseDatos;
-import com.example.demo.bean.Libro;
+import com.example.demo.bean.Empleado;
 import com.example.demo.bean.Usuario;
 import com.example.demo.service.BaseDatos2;
 import com.example.demo.service.BaseDatos3;
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 @Controller
@@ -33,13 +31,13 @@ public class Controlador {
     @PostMapping("/")
     public String login(Usuario usuario, Model model) {
         if (usuario.getNombre().equals("edu") && usuario.getPassword().equals("edu")) {
-            //ArrayList<Libro> libros = bd.getLibros();
-            ArrayList<Libro> libros = (ArrayList<Libro>) bd.findAll();
+            //ArrayList<Empleado> empleados = bd.getEmpleados();
+            ArrayList<Empleado> empleados = (ArrayList<Empleado>) bd.findAll();
 
             model.addAttribute("usuario",usuario);
             this.usuario = usuario;
-            model.addAttribute("libros",libros);
-            model.addAttribute("boton","Inserta Libro");
+            model.addAttribute("empleados",empleados);
+            model.addAttribute("boton","Inserta Empleado");
             model.addAttribute("action", "/insertar");
             return "consulta";
         }
@@ -49,18 +47,18 @@ public class Controlador {
     }
 
     @PostMapping("/insertar")
-    public String insertar(Libro libro, Model model) {
-        //bd.inserta(libro);
-        bd.save(libro);
+    public String insertar(Empleado empleado, Model model) {
+        //bd.inserta(empleado);
+        bd.save(empleado);
 
-        //ArrayList<Libro> libros = bd.getLibros();
-        ArrayList<Libro> libros = (ArrayList<Libro>) bd.findAll();
+        //ArrayList<Empleado> empleados = bd.getEmpleados();
+        ArrayList<Empleado> empleados = (ArrayList<Empleado>) bd.findAll();
 
         model.addAttribute("usuario", this.usuario);
-        model.addAttribute("libros", libros);
-        model.addAttribute("boton","Inserta Libro");
+        model.addAttribute("empleados", empleados);
+        model.addAttribute("boton","Inserta Empleado");
         model.addAttribute("action", "/insertar");
-        model.addAttribute("libro", null);
+        model.addAttribute("empleado", null);
         return "consulta";
     }
 
@@ -68,42 +66,42 @@ public class Controlador {
     public String borrar(@PathVariable int id, Model model) {
         //bd.borrar(id);
         bd.deleteById(id);
-        //ArrayList<Libro> libros = bd.getLibros();
-        ArrayList<Libro> libros = (ArrayList<Libro>) bd.findAll();
-        model.addAttribute("libros", libros);
+        //ArrayList<Empleado> empleados = bd.getEmpleados();
+        ArrayList<Empleado> empleados = (ArrayList<Empleado>) bd.findAll();
+        model.addAttribute("empleados", empleados);
         model.addAttribute("usuario", this.usuario);
-        model.addAttribute("boton", "Borra Libro");
+        model.addAttribute("boton", "Borra Empleado");
         model.addAttribute("action","/insertar");
         return "consulta";
     }
 
     @GetMapping("/modificar/{id}")
     public String modificar(@PathVariable int id, Model model) {
-        //Libro libro = bd.getLibro(id);
-        Libro libro = bd.findById(id).get();
+        //Empleado empleado = bd.getEmpleado(id);
+        Empleado empleado = bd.findById(id).get();
 
-        //ArrayList<Libro> libros = bd.getLibros();
-        ArrayList<Libro> libros = (ArrayList<Libro>) bd.findAll();
-        model.addAttribute("libros",libros);
-        model.addAttribute("libro",libro);
+        //ArrayList<Empleados> empleados = bd.getEmpleados();
+        ArrayList<Empleado> empleados = (ArrayList<Empleado>) bd.findAll();
+        model.addAttribute("empleados",empleados);
+        model.addAttribute("empleado",empleado);
         model.addAttribute("usuario",this.usuario);
-        model.addAttribute("boton","Actualiza Libro");
+        model.addAttribute("boton","Actualiza Empleado");
         model.addAttribute("action","/modificar");
         return "consulta";
     }
 
     @PostMapping("/modificar")
-    public String modificar2(Libro libro, Model model) {
-        //bd.modifica(libro);
-        bd.save(libro);
+    public String modificar2(Empleado empleado, Model model) {
+        //bd.modifica(empleado);
+        bd.save(empleado);
 
-        //ArrayList<Libro> libros = bd.getLibros();
-        ArrayList<Libro> libros = (ArrayList<Libro>) bd.findAll();
+        //ArrayList<Empleado> empleados = bd.getEmpleados();
+        ArrayList<Empleado> empleados = (ArrayList<Empleado>) bd.findAll();
 
         model.addAttribute("usuario",this.usuario);
-        model.addAttribute("libros",libros);
-        model.addAttribute("libro",null);
-        model.addAttribute("boton","Inserta Libro");
+        model.addAttribute("empleados",empleados);
+        model.addAttribute("empleado",null);
+        model.addAttribute("boton","Inserta Empleado");
         model.addAttribute("action","/insertar");
         return "consulta";
     }
